@@ -1,0 +1,32 @@
+from sales_order_csv insert overwrite table sales_order_orc select *;
+
+select * from sales_order_orc;
+
+#Assignment 1 - Q1
+select year_id, sum(sales) as Sales from sales_order_orc group by year_id;
+
+#Assignment 1 - Q2
+select productline, count(quantity) as MaxOrder from sales_order_orc group by productline order by MaxOrder desc limit 1;
+
+#Assignment 1 - Q3
+select qtr_id, sum(sales) as Sales from sales_order_orc group by qtr_id;
+
+#Assignment 1 - Q4
+select qtr_id, sum(sales) as Sales from sales_order_orc group by qtr_id order by Sales limit 1;
+
+#Assignment 1 - Q5
+select country, sum(sales) as Sales from sales_order_orc group by country order by Sales desc limit 1;
+
+#Assignment 1 - Q6
+select city, qtr_id, sum(sales) as Sales from  sales_order_orc group by city, qtr_id;
+
+#Assignment 1 - Q7
+select year_id, month_id, sum(quantity) from sales_order_orc group by year_id, month_id; 
+
+select year_id, month_id, max(sold) as sold from sales_backup group by year_id, month_id order by sold desc limit 3;
+
+select year_id, month_id, max(quantity) as sold from sales_order_orc 
+where exists(select year_id, month_id, sum(quantity) as sold from sales_order_orc group by year_id, month_id) group by year_id;
+
+#Assignment 1 - Q5
+select country, sum(sales) as Sales from sales_order_orc group by country order by Sales limit 1;
