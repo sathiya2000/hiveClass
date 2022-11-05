@@ -1,0 +1,7 @@
+SELECT * FROM AGENTPERFORMANCE;
+
+//Q1 - List of all Agent's Names:
+select agent_name from agentperformance group by agent_name order by agent_name;
+
+//Q2 - Agent Average rating:
+select agent_name, sum(average_rating) as avg_rating from agentperformance group by agent_name order by avg_rating desc;
