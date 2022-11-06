@@ -7,7 +7,21 @@ select agent_name from agentperformance group by agent_name order by agent_name;
 select agent_name, sum(average_rating) as avg_rating from agentperformance group by agent_name order by avg_rating desc;
 
 //Q3 - Total working days for each Agents:
-select agent_name, count(date) as days from agentperformance group by agent_name order by days desc; 
+select agent_name, count(date) as days from agentperformance where total_chats in (select total_chats from agentperformance where total_chats != 0) group by agent_name order by days desc; 
 
 //Q4 - Total query that each agent has taken:
 select agent_name, sum(total_chats) as querys from agentperformance group by agent_name order by querys desc;
+
+//Q5 - Total feedback each agent has recieved:
+select agent_name, sum(total_feedback) as Feedback from agentperformance group by agent_name order by Feedback desc;
+
+
+
+//sample
+select agent_name, sum(average_rating) from agentperformance where agent_name like 'W%' group by agent_name;
+
+select agent_name, average_rating from agentperformance where agent_name like 'W%';
+
+select total_chats from agentperformance where total_chats = 0;
+
+
