@@ -16,16 +16,18 @@ select agent_name, sum(total_chats) as querys from agentperformance group by age
 select agent_name, sum(total_feedback) as Feedback from agentperformance group by agent_name order by Feedback desc;
 
 //Q6 - Agent name who have average rating between 3.5 to 4:
-select agent_name, avg(average_rating) as run from agentperformance group by agent_name having avg(average_rating) between 3.5 and 4  order by run desc;
+select agent_name, avg(average_rating) as rate from agentperformance where total_chats in (select total_chats from agentperformance where total_chats != 0) group by agent_name having avg(average_rating) between 3.5 and 4  order by rate desc;
 
-select agent_name, avg(average_rating) as run from agentperformance group by agent_name order by run desc;
+select agent_name, avg(average_rating) as rate from agentperformance where total_chats in (select total_chats from agentperformance where total_chats != 0) group by agent_name order by rate desc;
 
 //Q7 - Agent name who have rating less than 3.5:  
-select agent_name, avg(average_rating) as run from agentperformance group by agent_name having avg(average_rating) < 3.5 order by run desc;
+select agent_name, avg(average_rating) as rate from agentperformance where total_chats in (select total_chats from agentperformance where total_chats != 0) group by agent_name having avg(average_rating) < 3.5 order by rate desc;
 
 //Q8 - Agent name who have rating more than 4.5:  
-select agent_name, avg(average_rating) as run from agentperformance group by agent_name having avg(average_rating) > 4 order by run desc;
+select agent_name, avg(average_rating) as rate from agentperformance where total_chats in (select total_chats from agentperformance where total_chats != 0) group by agent_name having avg(average_rating) > 4.5 order by rate desc;
 
+//Q9 - How many feedback agents have received more than 4.5 average:
+select agent_name,sum(total_feedback) as Feedback, avg(average_rating) as rate from agentperformance where total_chats in (select total_chats from agentperformance where total_chats != 0) group by agent_name having avg(average_rating) > 4.5 order by rate desc;
 
 
 
