@@ -30,6 +30,23 @@ select agent_name, avg(average_rating) as rate from agentperformance where total
 select agent_name,sum(total_feedback) as Feedback, avg(average_rating) as rate from agentperformance where total_chats in (select total_chats from agentperformance where total_chats != 0) group by agent_name having avg(average_rating) > 4.5 order by rate desc;
 
 
+//Q12 - Find the number of chat on which they have received a feedback:
+
+select agent_name,total_feedback,total_chats,
+case
+    when total_chats >= total_feedback then total_feedback
+    else null
+end as chats
+from agentperformance;
+
+select agent_name, total_feedback from agentperformance where total_feedback like 
+ case
+    when total_chats >= total_feedback then total_feedback
+    else null
+end; 
+
+select agent_name, sum(total_feedback) as feedback from agentperformance where total_feedback in(select total_feedback from agentperformance where total_feedback <= total_chats) group by agent_name order by feedback desc;
+
 
 
 //sample
